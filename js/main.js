@@ -3,21 +3,21 @@
 /////////////////////////////////////
 
 const fotos = [
-    { id: 1, src: "viajes-1.jpg", tag: ["agua", "playa", "persona", "vegetacion"] },
-    { id: 2, src: "viajes-2.jpg", tag: ["agua", "edificio"] },
-    { id: 3, src: "viajes-3.jpg", tag: ["direcciones"] },
-    { id: 4, src: "viajes-4.jpg", tag: ["agua", "edificio", "puente", "farolas", "paseo"] },
-    { id: 5, src: "viajes-5.jpg", tag: ["agua", "edificio", "puente", "farolas"] },
-    { id: 6, src: "viajes-6.jpg", tag: ["agua", "montaña", "farolas", "paseo"] },
-    { id: 7, src: "viajes-7.jpg", tag: ["montaña", "edificio", "vegetacion"] },
+    { id: 1, src: "assets/viajes-1.jpg", titulo: "Titulo de foto 1", tag: ["todo", "agua", "playa", "persona", "vegetacion"] },
+    { id: 2, src: "assets/viajes-2.jpg", titulo: "Titulo de foto 2", tag: ["todo", "agua", "edificio"] },
+    { id: 3, src: "assets/viajes-3.jpg", titulo: "Titulo de foto 3", tag: ["todo", "direcciones"] },
+    { id: 4, src: "assets/viajes-4.jpg", titulo: "Titulo de foto 4", tag: ["todo", "agua", "edificio", "puente", "farolas", "paseo"] },
+    { id: 5, src: "assets/viajes-5.jpg", titulo: "Titulo de foto 5", tag: ["todo", "agua", "edificio", "puente", "farolas"] },
+    { id: 6, src: "assets/viajes-6.jpg", titulo: "Titulo de foto 6", tag: ["todo", "agua", "montaña", "farolas", "paseo"] },
+    { id: 7, src: "assets/viajes-7.jpg", titulo: "Titulo de foto 7", tag: ["todo", "montaña", "edificio", "vegetacion"] },
 ]
 let fotosFiltradas = []
-
+let tags = []
 
 const botonera = document.querySelector("#botonera")
-const imgContainer = document.querySelector("#carrusel")
+const carrusel = document.querySelector("#carrusel")
+const numeroImagenes = document.querySelector("#numeroImagenes")
 let fragmento = document.createDocumentFragment();
-let tags = []
 
 /////////////////////////////////////
 ///////     EVENTOS  /    ///////////
@@ -63,20 +63,33 @@ const filtrarFotos = (text) => {
 };
 
 const pintarFotos = ((fotos, text) => {
-    console.log(`Hay ${fotos.length} para pintar con el tag ${text}`)
-    console.log(fotos)
 
-    imgContainer.innerHTML = "";
+    numeroImagenes.textContent = (`Hay ${fotos.length} para pintar con el tag ${text}`)
 
+    carrusel.innerHTML = "";
 
-    let texto = document.createElement("H2")
-    texto.textContent = (`Hay ${fotos.length} para pintar con el tag ${text}`)
+    fotosFiltradas.forEach((foto) => {
 
-    fragmento.append(texto)
+        let mainContainer = document.createElement("DIV")
 
+        let imgContainer = document.createElement("DIV")
+        imgContainer.className = "imgContainer"
 
+        let parrafo = document.createElement("P")
+        parrafo.textContent = foto.titulo
 
-    imgContainer.append(fragmento)
+        let imagen = document.createElement("IMG")
+        imagen.src = foto.src
+        imagen.alt = foto.alt
+
+        imgContainer.append(imagen)
+
+        mainContainer.append(parrafo, imgContainer)
+
+        fragmento.append(mainContainer)
+    })
+
+    carrusel.append(fragmento)
 })
 
 dibujarBotones(tags)
