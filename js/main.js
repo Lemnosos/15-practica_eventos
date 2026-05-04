@@ -2,6 +2,13 @@
 //////     VARIABLES      ///////////
 /////////////////////////////////////
 
+let botonera = document.querySelector("#botonera");
+let carrusel = document.querySelector("#carrusel");
+let numeroImagenes = document.querySelector("#numeroImagenes");
+let divImagenGrande = document.querySelector("#divImagenGrande");
+
+let fragmento = document.createDocumentFragment();
+
 const fotos = [
     { id: 1, src: "assets/viajes-1.jpg", titulo: "Titulo de foto 1", tag: ["todo", "agua", "playa", "persona", "vegetacion"] },
     { id: 2, src: "assets/viajes-2.jpg", titulo: "Titulo de foto 2", tag: ["todo", "agua", "edificio"] },
@@ -15,13 +22,6 @@ const fotos = [
 let fotosFiltradas = [];
 let tags = [];
 
-let botonera = document.querySelector("#botonera");
-let carrusel = document.querySelector("#carrusel");
-let numeroImagenes = document.querySelector("#numeroImagenes");
-let divImagenGrande = document.querySelector("#divImagenGrande");
-
-let fragmento = document.createDocumentFragment();
-
 let fotoActual = null;
 
 
@@ -30,9 +30,9 @@ let fotoActual = null;
 /////////////////////////////////////
 
 // CLICK BOTONES (FILTRADO)
-document.addEventListener("click", function (ev) {
+document.addEventListener("click", (ev) => {
 
-    if (ev.target.tagName === "BUTTON") {
+    if (ev.target.matches("BUTTON")) {
 
         let texto = ev.target.textContent;
 
@@ -102,6 +102,12 @@ const pintarFotos = (fotos, text) => {
 
     divImagenGrande.innerHTML = "";
     carrusel.innerHTML = "";
+
+    //Comprobar si el array de las fotos esta vacio y retornar si es necesario
+    if (fotos.length === 0) {
+        numeroImagenes.textContent = "No hay imágenes que mostrar";
+        return;
+    }
 
     numeroImagenes.textContent =
         `Hay ${fotos.length} imagen para pintar con el tag ${text}`;
