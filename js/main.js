@@ -42,25 +42,24 @@ document.addEventListener("click", (ev) => {
 
         pintarFotos(fotosFiltradas, texto);
     }
-});
 
+    if (ev.target.closest(".cardContainer")) {
+        const card = ev.target.closest(".cardContainer");
 
-// CLICK MINIATURAS
-document.addEventListener("click", function (ev) {
+        if (!card || card.id === "divImagenGrande") return;
 
-    const card = ev.target.closest(".cardContainer");
+        const foto = fotosFiltradas.find(f =>
+            f.titulo === card.querySelector("p").textContent
+        );
 
-    if (!card || card.id === "divImagenGrande") return;
+        if (!foto) return;
 
-    const foto = fotosFiltradas.find(f =>
-        f.titulo === card.querySelector("p").textContent
-    );
+        fotoActual = foto;
 
-    if (!foto) return;
+        pintarFotos(fotosFiltradas, "actualizado");
 
-    fotoActual = foto;
+    }
 
-    pintarFotos(fotosFiltradas, "actualizado");
 });
 
 
